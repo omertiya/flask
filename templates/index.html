@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>hello world!</h1>
+
+<h2>this is {{first_name}} say hi</h2>
+
+
+<p>this is my first wep page</p>
+
+<p>is sent cool</p>
+{{stuff|title}}
+
+<h3>i like thos pizza</h3>
+{% for item in pizza %}
+{% if item==100 %}
+{{item|float}}
+{% else %}
+<p>
+    i like {{item}} pizza
+</p>
+{% endif %}
+{% endfor %}
+{% endblock %}

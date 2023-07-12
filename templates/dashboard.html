@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>hi {{user_session}}</h2>
+
+{% for message in get_flashed_messages() %}
+
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ message }}.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+
+
+{% endfor %}
+<h1>dash board</h1>
+<br>
+<h2>you are log in </h2>
+<div class="contener">
+    <div class="row">
+        <div class="col-9">
+            <p>
+                <strong>user id :</strong>{{current_user.id}}<br>
+                <strong>name :</strong>{{current_user.name}}<br>
+                <strong>user name :</strong>{{current_user.user_name}}<br>
+                <strong>favorite color :</strong>{{current_user.favorite_color}}<br>
+                <strong>email :</strong>{{current_user.email}}<br>
+                <strong>date jone :</strong>{{current_user.date_added}}<br>
+                <strong>profile pic:</strong>{{current_user.profile_pic}}<br>
+                <strong>about {{current_user.name}} :</strong>{{current_user.about_author}}<br>
+            </p>
+            <br>
+            <a href="{{url_for('logout')}}" class="btn btn-danger">logout</a>
+            <a href="{{url_for('update',id=current_user.id)}}" class="btn btn-outline-primary">update user</a>
+            <a href="{{url_for('delete',id=current_user.id)}}" class="btn btn-outline-danger"> delete user </a>
+        </div>
+        <div class="col-2">
+            {% if current_user.profile_pic %}
+            <img src="{{url_for('static',filename='img/'+current_user.profile_pic)}}" alt="profile pactior"
+                name="profile" width="150" height="150" title="profile pactior">
+            {% else %}
+            <img src="{{url_for('static',filename='img/profile.jpg')}}" alt="profile pactior" name="profile" width="150"
+                height="150" title="profile pactior">
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+<br><br>
+<h2>update brofile</h2>
+<h1>user form</h1>
+
+<form action="{{url_for('dashboard')}}" method="post" enctype="multipart/form-data">
+    {{form.hidden_tag()}}
+
+
+    {{form.user_name.label(class='form-label')}}
+    {{form.user_name(class='form-control',placeholder='jone2020',value=name_to_update.user_name)}}
+    <br>
+    {{form.name.label(class='form-label')}}
+    {{form.name(class='form-control',placeholder='jone',value=name_to_update.name)}}
+
+    <br>
+    {{form.email.label(class='form-label')}}
+    {{form.email(class='form-control',placeholder='jone@jone.com',value=name_to_update.email)}}
+    <br>
+    {{form.favorite_color.label(class='form-label')}}
+    {{form.favorite_color(class='form-control',value=name_to_update.favorite_color)}}
+
+    <br>
+    {{form.about_author.label(class='form-label')}}
+    {{form.about_author(class='form-control',value=name_to_update.about_author)}}
+    <br>
+    {{form.profile_pic.label(class='form-label')}}
+    {{form.profile_pic(class='form-control')}}
+
+    <br><br>
+    {{form.submit(class='btn btn-primary')}}
+</form>
+
+{% endblock %}

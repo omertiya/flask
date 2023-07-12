@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<br>
+<h1>search</h1>
+<h2>you srarch for <em>{{ searched }}</em> </h2>
+{% if posts %}
+
+{% for item in posts %}
+<div class="shadow p-3 mb-5 bg-body rounded">
+
+    <h3>{{item.id}}
+
+        title: {{item.title}}</h3>
+    <small> date: {{item.date_posted}} <br>
+
+        author: {{item.poster.name}} <br>
+        slug: {{item.slug}} <br><br>
+    </small>
+    content: {{item.content}}
+    <br><br>
+    <a href="{{url_for('post',id=item.id)}}" class="btn btn-outline-primary"> open</a>
+
+    {% if item.poster.id == current_user.id %}
+    <a href="{{url_for('edit_post',id=item.id)}}" class="btn btn-outline-primary"> edit</a>
+
+    <a href="{{url_for('delete_post',id=item.id)}}" class="btn btn-outline-danger btn-sm"> delete</a>
+
+    {% endif %}
+</div>
+<br>
+{% endfor %}
+{% else %}
+<p>
+    sorry ! your search for <strong>{{ searched }}</strong> not fond !!...
+</p>
+{% endif %}
+
+{% endblock %}
